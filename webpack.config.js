@@ -10,7 +10,8 @@ module.exports = {
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js'
+    filename: 'index.js',
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
@@ -31,6 +32,8 @@ module.exports = {
       {
         test: /\.s[ac]ss$/i,
         use: [
+          // Inject the css into the document style header
+          'style-loader',
           // Translates CSS into CommonJS
           'css-loader',
           // Compiles Sass to CSS
@@ -38,5 +41,8 @@ module.exports = {
         ]
       }
     ]
+  },
+  externals: {
+    react: 'commonjs react'
   }
 }
